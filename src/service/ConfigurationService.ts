@@ -33,10 +33,15 @@ export class ConfigurationService {
     }
 
 
-    async getBooleanValue(name: string): Promise<boolean> {
-        const value = await this.getValue(name);
-        logger.info(`Get boolean value of ${name} value=> ${value}`)
-        return value == "true";
+    async getBooleanValue(name: string,defaultValue:boolean): Promise<boolean> {
+        try {
+            const value = await this.getValue(name);
+            logger.info(`Get boolean value of ${name} value=> ${value}`)
+            return value == "true";
+        }catch(reason){
+            return defaultValue;
+        }
+        
     }
 
 

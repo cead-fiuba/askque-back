@@ -32,7 +32,7 @@ export class TeacherService {
     }
 
     createTeacher = async (teacher: Teacher): Promise<ShallResult> => {
-        const applyValitation = await this.configurationService.getBooleanValue(APPLY_VALIDATION_EMAIL_KEY)
+        const applyValitation = await this.configurationService.getBooleanValue(APPLY_VALIDATION_EMAIL_KEY,false)
         logger.info(`Apply validation ${applyValitation}`)
         if (applyValitation && !teacher.email.endsWith("fi.uba.ar")) {
             logger.error('The email not finished with fi.uba.ar')
