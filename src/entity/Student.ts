@@ -13,9 +13,6 @@ export class Student {
     @PrimaryColumn()
     email: string;
 
-    @Column()
-    password: string;
-
     @OneToMany(type => Response, r => r.student)
     responses: Response[]
 

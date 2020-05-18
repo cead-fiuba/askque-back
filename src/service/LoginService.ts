@@ -19,24 +19,16 @@ export class LoginService {
         this.studentService = new StudentService();
     }
 
+    async createSession(request:LoginRequestDTO):Promise<LoginUserResponseDTO>{
+       const student =  await this.studentService.findByEmail(request.email);
+       logger.info('Student',student)
+       const token = this.createTokenByEmail(request.email)
+       if(student){
+           return new LoginUserResponseDTO(token, request.email, false)
+       }else{
+        return new LoginUserResponseDTO(token, request.email, true)
 
-    async createTeacherSession(request: TeacherLoginRequestDTO): Promise<LoginUserResponseDTO> {
-        logger.info(`Login sucess for teacher!! ${request.email}`)
-        const token = this.createTokenByEmail(request.email)
-        const response = new LoginUserResponseDTO(token, request.email, true)
-        return Promise.resolve(response)
-    }
-
-    async createStudentSession(request: LoginRequestDTO): Promise<LoginUserResponseDTO> {
-        const student = await this.studentService.findByEmail(request.email)
-        if (!student || student.password !== request.password) {
-            logger.error('Student not found or password is wrong')
-            throw new NotFoundError()
-        }
-        logger.info(`Login success for student ${request.email}!`)
-        const token = this.createTokenByEmail(request.email)
-        const response = new LoginUserResponseDTO(token, request.email, false)
-        return Promise.resolve(response)
+       }
     }
 
     createTokenByEmail(email: string): string {

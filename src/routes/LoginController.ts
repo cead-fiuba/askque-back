@@ -19,23 +19,13 @@ export class LoginController {
         this.loginService = new LoginService();
     }
 
-    @Post("/login/student")
-    createStudentSession(@Body() request: LoginRequestDTO) {
-        return this.loginService.createStudentSession(request).then((res: LoginUserResponseDTO) => {
+    @Post("/login")
+    createSession(@Body() request: LoginRequestDTO) {
+        return this.loginService.createSession(request).then((res: LoginUserResponseDTO) => {
             return res;
         }).catch((e) => {
             logger.error('Error found', e)
             throw new NotFoundError('Error in the login');
-        })
-    }
-
-    @Post("/login/teacher")
-    createTeacherSession(@Body() request: TeacherLoginRequestDTO) {
-        return this.loginService.createTeacherSession(request).then((res: LoginUserResponseDTO) => {
-            return res;
-        }).catch((e) => {
-            logger.error(`Error found creating session for ${request.email}`);
-            throw new NotFoundError(`Error in the login ${e}`);
         })
     }
 

@@ -24,7 +24,6 @@ export class StudentService {
         newStudent.padron = request.padron
         newStudent.name = request.name
         newStudent.email = request.email
-        newStudent.password = request.password
         return this.studentDao.save(newStudent)
     }
 
