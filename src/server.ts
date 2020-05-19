@@ -21,11 +21,11 @@ const env = process.env.NODE_ENV
 const dbConfig: any = {
     "prod": {
         "type": "postgres",
-        "host": "ec2-174-129-254-218.compute-1.amazonaws.com",
+        "host": "ec2-52-71-55-81.compute-1.amazonaws.com",
         "port": 5432,
-        "username": "efegleukavudep",
-        "password": "431957412617919b50b5be027181d097f67c9937039dfe838d13151dcf110e56",
-        "database": "d3nfkmqagrbs2h",
+        "username": "pfdvuibzlypdgr",
+        "password": "c3cf167a308c674b8551eefd1cf9c78b1c8cb6c0dbc57507b47fa660241c732b",
+        "database": "dcl2t8huchm06i",
         "synchronize": true,
         "logging": true,
         "namingStrategy": new SnakeNamingStrategy(),
