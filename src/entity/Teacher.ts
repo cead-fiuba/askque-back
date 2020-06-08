@@ -1,22 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { Questionary } from "./Questionary";
-import { TeacherOcupation } from "./UserOcupation";
+import { TeacherOcupation } from "./TeacherOcupation";
 
 @Entity()
 export class Teacher {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number
+  @Column()
+  name: string;
 
-    @Column()
-    name: string;
+  @Column()
+  lastname: string;
 
-    @PrimaryColumn()
-    email: string;
+  @Column()
+  asignature: string;
 
-    @OneToMany(type => Questionary, q => q.teacher)
-    createdQuestionaries: Questionary[]
+  @Column()
+  legajo: number;
 
-    @Column("enum", { enum: TeacherOcupation })
-    ocupation: TeacherOcupation
+  @PrimaryColumn()
+  email: string;
+
+  @OneToMany((type) => Questionary, (q) => q.teacher)
+  createdQuestionaries: Questionary[];
+
+  @Column("enum", { enum: TeacherOcupation })
+  ocupation: TeacherOcupation;
 }
