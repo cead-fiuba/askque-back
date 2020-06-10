@@ -8,18 +8,19 @@ import { ShallResult } from "../model/ShallResult";
 import { ConfigurationService } from "./ConfigurationService";
 import { APPLY_VALIDATION_EMAIL_KEY } from "../config/ConfigurationKeys";
 import { CreateTeacherRequestDTO } from "../dto/CreateTeacherRequestDTO";
+import { TokenService } from "./TokenService";
 
 const logger = createLoggerWithModuleName(module);
 
 export class TeacherService {
   teacherDao: Repository<Teacher>;
-  loginService: LoginService;
   configurationService: ConfigurationService;
+  tokenService: TokenService;
 
   constructor() {
     this.teacherDao = getConnection().getRepository(Teacher);
-    this.loginService = new LoginService();
     this.configurationService = ConfigurationService.Instance;
+    this.tokenService = new TokenService();
   }
 
   findByEmail = (email: string): Promise<Teacher> => {
@@ -57,7 +58,7 @@ export class TeacherService {
       .save(newTeacher)
       .then((response) => {
         logger.info(`create teacher success for ${response.email}`);
-        const token = this.loginService.createTokenByEmail(newTeacher.email);
+        const token = this.tokenService.createTokenByEmail(newTeacher.email);
         return Promise.resolve(new SucessResult(token));
       })
       .catch((e) => {

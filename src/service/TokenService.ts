@@ -8,28 +8,8 @@ import { LoginUserResponseDTO } from "../dto/LoginUserResponseDTO";
 
 const logger = createLoggerWithModuleName(module);
 
-export class LoginService {
-  private studentService: StudentService;
-  private teacherService: TeacherService;
-
-  constructor() {
-    this.studentService = new StudentService();
-    this.teacherService = new TeacherService();
-  }
-
-  async createSession(request: LoginRequestDTO): Promise<LoginUserResponseDTO> {
-    const student = await this.studentService.findByEmail(request.email);
-    const teacher = await this.teacherService.findByEmail(request.email);
-    logger.info("Student", student);
-    const token = this.createTokenByEmail(request.email);
-    if (student) {
-      return new LoginUserResponseDTO(token, request.email, false);
-    } else if (teacher) {
-      return new LoginUserResponseDTO(token, request.email, true);
-    } else {
-      throw new NotFoundError("Invalid email");
-    }
-  }
+export class TokenService {
+  constructor() {}
 
   createTokenByEmail(email: string): string {
     logger.info(`Create token for email ${email}`);
@@ -42,19 +22,6 @@ export class LoginService {
     });
     logger.info("Token created!");
     return token;
-  }
-
-  validateTokenStudent(token: string): Promise<boolean> {
-    token = token.replace("Bearer", "");
-    const decoded: any = jwt.verify(token, "Secret Password");
-    return this.studentService
-      .findByEmail(decoded.payload.email)
-      .then((student) => {
-        return true;
-      })
-      .catch((e) => {
-        return false;
-      });
   }
 
   getEmailOfToken(token: string): string {
