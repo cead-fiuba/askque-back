@@ -22,6 +22,9 @@ export class Questionary {
   description: string;
 
   @Column()
+  asignature: string;
+
+  @Column()
   time_in_minutes: number;
 
   @OneToMany((type) => Question, (q) => q.questionary, {

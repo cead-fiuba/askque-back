@@ -20,9 +20,6 @@ export class Teacher {
   lastname: string;
 
   @Column()
-  asignature: string;
-
-  @Column()
   legajo: number;
 
   @PrimaryColumn()
