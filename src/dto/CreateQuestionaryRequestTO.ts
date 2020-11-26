@@ -10,6 +10,8 @@ export class CreateQuestionaryRequestDTO {
 
     name: string;
 
+    asignature: string;
+
     description: string
 
     time: number;

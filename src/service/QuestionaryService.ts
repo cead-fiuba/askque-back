@@ -103,6 +103,7 @@ export class QuestionaryService {
     );
     newQuestionary.questions = questions;
     newQuestionary.name = request.name;
+    newQuestionary.asignature = request.asignature;
     newQuestionary.quantity_respones = 0;
     newQuestionary.time_in_minutes = request.time;
     newQuestionary.module = request.module;

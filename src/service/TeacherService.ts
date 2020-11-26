@@ -51,7 +51,6 @@ export class TeacherService {
     newTeacher.email = request.email;
     newTeacher.name = request.name;
     newTeacher.lastname = request.lastname;
-    newTeacher.asignature = request.asignature;
     newTeacher.ocupation = request.ocupation;
     newTeacher.legajo = request.legajo;
     return this.teacherDao
