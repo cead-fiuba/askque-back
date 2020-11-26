@@ -21,7 +21,7 @@ export class Questionary {
   @Column("text", { nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   asignature: string;
 
   @Column()
