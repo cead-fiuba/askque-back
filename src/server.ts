@@ -14,7 +14,8 @@ import { ImageController } from "./routes/ImageController";
 import { ConfigurationController } from "./routes/ConfigurationController";
 import { QuestionController } from "./routes/QuestionController";
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-
+import https from 'https';
+import fs from 'fs';
 
 const env = process.env.NODE_ENV
 
@@ -106,5 +107,11 @@ createConnection(config).then(async connection => {
     app.use(bodyParser.json());
     console.log(`Listen port ${port}'`)
 
-    app.listen(port);
+    const credentials = {
+	key: fs.readFileSync('/etc/certs/wildcard.fi.uba.ar/privkey.pem'),
+       	cert: fs.readFileSync('/etc/certs/wildcard.fi.uba.ar/cert.pem')
+    };
+    var httpsServer = https.createServer(credentials, app)
+    httpsServer.listen(port);
+
 }).catch(error => console.log(error));
